@@ -1,0 +1,94 @@
+{% load static %}
+{% load bootstrap %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+
+
+    <title>Главная :: Архив Закрытых Пенсионных дел</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container-md" >
+            <div class="row">
+              <div class="col-md text-center"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
+            </div>
+          </div>  
+    </header>
+    
+   
+    <form method="get" class="formsearch mt-3 mx-4 lh-1">
+      <div class="text-uppercase fw-bold text-center pad">поиск архивных дел</div><br>
+
+      {{ filter.form|bootstrap }}
+        <!---{{ filter.form.nom|bootstrap }}-->
+      <br>
+      <button type="submit" class="btn btn-outline-primary btnspd">Поиск</button>
+      <p><a class="mt-1 btn btn-outline-danger btnspd" href="{% url 'arxpd' %}">Очистить фильтр</a></p>
+      <hr>
+      <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'addarxpd' %}">Добавить дело</a></p>
+        {% if user.get_username == 'test1' %}
+      <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'opis' %}">Дела на унижтожение</a></p>
+         {% endif %}
+    </form>
+    <div class="container-md pdlist" >
+    <div class="strokauser">
+        {{ p.next_page_number }} {{ user.first_name}} {{ user.groups.id}}
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}! <a href="{% url 'logout' %}">Log Out</a>
+    {% endif %}
+    </div>
+
+    {% if filter.qs.count < allrec.count %}
+    <!---{% if is_paginated %}
+    Page {{ page_obj.number }} of {{ paginator.num_pages }}
+   {% endif %}-->
+
+        <!---<div class="text-center fw-bold"> Найдено - {{ filter.qs.count }} дел из  {{ pds.count }}</div>-->
+        <div class="row pdtbl">
+
+             <table class="table table-responsive-sm caption-top table-striped tabdest">
+             <caption class="fw-bold">Найдено - {{ filter.qs.count }} дел из  {{ pds.count }} bbb всего {{ allrec.count }}</caption>
+             <thead class="text-center table-primary table-bordered border-primary align-middle">
+                <tr class="border-primary table-bordered">
+                  <th class="col-sm-2 border-primary text-center fw-bold border-2 align-middle">СНИЛС</th>
+                  <th class="col-sm-1 border-primary text-center fw-bold border-2 align-middle">Ном. архдела</th>
+                  <th class="col-sm-4 border-primary text-center fw-bold border-2 align-middle">ФИО Пенсионера</th>
+                  <th class="col-sm-5 border-primary text-center fw-bold border-2 align-middle">Адрес Пенсионера</th>
+                 </tr>
+             </thead>
+             <tbody>
+              {% for pd in filter.qs %}
+                <tr>
+                    <td class="col-md-2 text-center">{{ pd.snils }}</td>
+                    <td class="col-md-1 text-end"><a href="{% url 'viewarxpd' pd.id %}">{{ pd.nom }}</a></td>
+                    <td class="col-md-4 text-start">{{ pd.fam|upper }} {{ pd.name|upper }} {% if pd.fname %} {{ pd.fname|upper }}{% endif %}</td>
+                    <td class="col-md-5 text-start"> {{pd.zind}}, {{ pd.gor }}, ул. {{ pd.ul }}, д. {{ pd.dom }}
+                                                        {% if pd.kor %} корп. {{ pd.kor }}{% endif %}
+                                                        {% if pd.kvar %}  кв.  {{ pd.kvar }}{% endif %}
+                    </td>
+                </tr>
+              {% endfor %}
+             </tbody>
+
+        </table>
+        </div>
+      {% else %}
+      <div class="container-md">
+        <p></p>
+        <h1 class="text-center fw-bold">{{ user.last_name}} {{ user.first_name}}, начните работу с поиска архивного дела</h1>
+        <p></p>
+        <h1 class="text-center fw-bold">или добавьте архивное дело</h1><br>
+        <p class="text-center"><a class="mt-1 btn btn-outline-primary text-uppercase" href="{% url 'addarxpd' %}">Добавить дело</a></p>
+      </div>
+      
+      {% endif %}      
+</body>
+    <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
+</html>

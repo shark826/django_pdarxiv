@@ -1,0 +1,10 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'arxivbase',
+        'USER': 'arxivuser',
+        'PASSWORD': 'x8jjb5',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}

@@ -1,0 +1,30 @@
+{% load static %}
+{% load bootstrap %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+
+
+    <title>Авторизация</title>
+</head>
+<body>
+<div class="bodylogin">
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}! <a href="{% url 'logout' %}">Log Out</a>
+    {% endif %}
+    <br>
+    <div class="formlogin">
+    <h2>Login to App</h2>
+    <hr>
+        <form method="post" class="mt-3 mx-4">
+            {% csrf_token %}
+            {{ form|bootstrap }}
+            <hr>
+            <button type="submit" class="btn btn-secondary">Войти</button>
+        </form>
+    </div>
+</div>
+</body>

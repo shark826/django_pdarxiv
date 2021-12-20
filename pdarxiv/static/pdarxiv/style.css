@@ -1,0 +1,132 @@
+.header {
+    background-color: #3443af;
+    color:white;
+}
+.strokauser {
+    text-align: right;
+    padding-right: 2rem;
+    margin-top: 1rem;
+}
+.pdlist, .pdtbl {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.pdlist {
+    font-size: 0.9rem;
+}
+.pdlistdestroy {
+    font-size: 0.9rem;
+}
+.pad {
+    font-size: 0.8rem;
+}
+.pdtbl{
+    border-bottom: black 1px;
+}
+.menu-left {
+    float: left;
+   /* width: 25%;*/
+}
+.menu-left p {
+    font-weight: bolder;
+    text-shadow: 1px 1px 2px cadetblue;
+}
+.formone, .arxdelo {
+    background-color: #e9e9ed29;
+    line-height: 0.95rem;
+    font-size: 00.95rem;
+}
+.formadd, .arxdelo_f {
+    margin-left: 25%;
+    width: 75%;
+}   
+.formadd .fadr {
+    width: 15%;
+    display: inline-block;
+}
+.formadd .fadrf {
+    width: 20%;
+    display: inline-block;
+}
+.formadd p {
+   margin-bottom: 10px;
+}
+.err1 {
+    font-size: 0.7rem;
+    display: flex;
+    line-height: 0.6rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    z-index: inherit;
+}
+.err1 ul {
+    padding-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+.arxdelo p {
+    margin-bottom: 7px;
+}
+.arxdelo_header {
+    background: #3443af24;
+}
+
+.arxdelo_ft {
+    width: 15%;
+    display: inline-block;
+    font-weight: 200;
+    font-size: 0.95rem;
+    border-bottom: black 1px;
+}
+.arxdelo_fv {
+    width: 20%;
+    display: inline-block;
+    font-weight: 200;
+    font-size: 0.95rem;
+}
+.arxdelo_fv-small {
+    width: 4rem;
+    display: inline-block;
+    font-weight: 200;
+    font-size: 0.95rem;
+}
+.arxdelo_prim {
+    min-height: 100px;
+    display: inline-block;
+}
+.btnleftmenu {
+    width: 190px;
+    font-weight: 505;
+    margin-left: 2rem;
+}
+.formsearch {
+    float: left;
+    width: 170px;
+    height: 100vh;
+    font-size: 0.7rem;
+}
+.bodylogin {
+    margin: 0 auto;
+    background-color: rgba(227, 227, 227, 0.75);
+    display: block;
+    height: 100vh;
+}
+.formlogin {
+    margin: 5vh auto;
+    width: 25vw;
+    /*height: 100vh;*/
+    padding: 8px 6px;
+    font-size: 1.1rem;
+    display: block;
+    text-align: center;
+    border:2px solid #0d6efd;
+    border-radius: 10px;
+    background-color: rgba(219, 227, 255, 0.50);
+}
+
+.btnspd {
+    width: 170px;
+}
+.tabdest tbody tr td {
+    padding: 0.2rem 0.5rem;
+}

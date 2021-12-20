@@ -1,0 +1,89 @@
+{% load static %}
+{% load bootstrap %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+    <title>Формирование описи</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container-md" >
+            <div class="row">
+              <div class="col-md text-center"> <h1>Формирование описи выплатных дел с истекшим сроком хранения, подлежащих уничтожению</h1></div>
+            </div>
+          </div>  
+    </header>
+    
+   
+    <form method="get" class="formsearch mt-3 mx-4 lh-base">
+      <div class="text-uppercase text-center fw-bold pad">дела на уничтожение</div><br>
+      {{ filter.form|bootstrap }}
+      <br>
+      <button type="submit" class="btn btn-outline-primary btnspd">Поиск</button>
+      <p><a class="mt-1 btn btn-outline-danger btnspd" href="{% url 'opis' %}">Очистить фильтр</a></p>
+      <hr>
+      <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'arxpd' %}">Реестр арх. дел</a></p>
+    </form>
+     <div class="container-md pdlistdestroy" >
+    <div class="strokauser">
+        {{ p.next_page_number }} {{ user.first_name}} {{ user.groups.id}}
+        {% if user.is_authenticated %}
+        Hi {{ user.username }}! <a href="{% url 'logout' %}">Log Out</a>
+        {% endif %} </div>
+
+    {% if filter.qs.count < pdsd.count %}
+
+        <table class="table table-responsive-sm caption-top table-striped tabdest">
+        <caption class="fw-bold">Найдено - {{ filter.qs.count }} дел из  {{ pdsd.count }}</caption>
+        <thead class="text-center table-primary table-bordered border-primary align-middle">
+            <tr class="border-primary table-bordered">
+              <th class="col-sm-1 border-primary border-1 align-middle">№ п.п.</th>
+              <th class="col-sm-1 border-primary border-1">Ном. архдела</th>
+              <th class="col-sm-3 border-primary border-1">ФИО Пенсионера</th>
+              <th class="col-sm-2 border-primary border-1">СНИЛС</th>
+              <th class="col-sm-1 border-primary border-1">Дата рождения</th>
+              <th class="col-sm-2 border-primary border-1">Вид пенсии</th>
+              <th class="col-sm-1 border-primary border-1">Дата прекращ.</th>
+              <th class="col-sm-1 border-primary border-1">Прим.</th>
+            </tr>
+         </thead>
+        <tbody>
+            {% for pd in filter.qs %}
+                <tr>
+                    <td class="col-md-1 text-center">{{ forloop.counter }}</td>
+                    <td class="col-md-1 text-end">{{ pd.nom }}</td>
+                    <td class="col-md-3 text-start">{{ pd.fam|upper }} {{ pd.name|upper }} {% if pd.fname %} {{ pd.fname|upper }}{% endif %}</td>
+                    <td class="col-md-2 text-center">{{ pd.snils }}</td>
+                    <td class="col-md-1 text-center">{{ pd.dr|date:"d.m.Y" }}</td>
+                    {% ifequal pd.nvidp|stringformat:"s" "Пенсия по потери кормильца" %}
+                    <td class="col-md-2 text-start">Пенсия по СПК</td>
+                    {% else %}
+                    <td class="col-md-2 text-start">{{ pd.nvidp }}</td>
+                    {% endifequal %}
+                    <td class="col-md-1 text-center">{{ pd.dlp|date:"d.m.Y" }}</td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+       </table>
+      </div>
+
+      {% else %}
+      <div class="container-md pdlistdestroy">
+          <br>
+      <h1 class="text-center fw-bold">Начните работу с формирования запроса </h1>
+      <p></p>
+      <h1 class="text-center fw-bold">на выборку дел</h1><br>
+      </div>
+      
+      {% endif %}      
+</body>
+<script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
+</html>

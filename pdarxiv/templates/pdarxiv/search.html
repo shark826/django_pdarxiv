@@ -1,0 +1,66 @@
+{% load static %}
+{% load bootstrap %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+    <title>Главная :: Архив Закрытых Пенсионных дел</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container-md" >
+            <div class="row">
+              <div class="col-md-4">меню</div>
+              <div class="col-md-8"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
+            </div>
+          </div>  
+    </header>
+    
+    
+    <form method="get" class="formsearch mt-3 mx-4">
+        {{ filtered_qs.form.as_p }}
+        <!---{ PdFilter.form|bootstrap }}
+        {% csrf_token %}--->
+      <br>
+      <button type="submit" class="btn btn-outline-primary">Поиск</button>
+      <br><br>
+      <p><a class="mt-1 btn btn-outline-primary" href="{% url 'addarxpd' %}">Добавить дело</a></p>
+      <p><a class="mt-1 btn btn-outline-primary" href="{% url 'addarxpd' %}">Дела на унижтожение</a></p>
+    </form>
+      
+    <div class="container-md pdlist" >
+        <div class="row pdtbl">
+            <div class="col-md-2 border border-2 p-3 text-center fw-bold">СНИЛС</div>
+            <div class="col-md-1 border border-2 p-3 text-center fw-bold">Номер</div>
+            <div class="col-md-4 border border-2 p-3 text-center fw-bold">ФИО Пенсионера</div>
+            <div class="col-md-5 border border-2 p-3 text-center fw-bold">Адрес Пенсионера</div>
+          </div>
+         {{ filtered_qs }}
+        {{ paginator }}
+         {% if filter.qs == empty %} TVPNY {% endif %}
+        {% for pd in filtered_qs %}
+         
+        <div class="row">
+
+          <div class="col-md-2 ">{{ pd.snils }}</div>
+           <a class="col-md-1" href="{% url 'viewarxpd' pd.id %}">{{ pd.nom }}</a>
+          <!--<a class="btn btn-outline-primary" href="{% url 'arxpd' %}">{{ pd.nom }}</a>-->
+          <!--<div class="col-md-1">{{ pd.nom }}</div>-->
+          <div class="col-md-4">{{ pd.fam|upper }} {{ pd.name|slice:"0:1" }}. 
+            {% if pd.fname %} {{ pd.fname|slice:"0:1" }}.{% endif %}</div>
+          <div class="col-md-5"> {{pd.zind}}, {{ pd.gor }}, ул. {{ pd.ul }}, д. {{ pd.dom }}
+            {% if pd.kor %} корп. {{ pd.kor }}{% endif %}
+            {% if pd.kvar %}  кв.  {{ pd.kvar }}{% endif %}
+            {% if pd.fam_icontains == 'ША' %}<span class="badge bg-secondary">новое</span>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>  
+    
+</body>
+</html>

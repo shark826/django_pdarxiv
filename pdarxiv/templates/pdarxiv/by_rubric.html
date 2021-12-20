@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ current_rubric.name }} :: Доска объявлени</title>
+</head>
+<body>
+    <h1>Объявления</h1>
+<h2>Рубрика:{{ current_rubric.name }}</h2>
+<div style="text-decoration: none; font-weight: 700; text-transform: uppercase;">
+    <a href="{% url 'index' %}">Главная </а>
+    <a href="{% url 'add' %}">Добавить </а>
+    {% for rubric in rubrics %}
+    <a href="{% url 'by_rubric' rubric.pk %}">&nbsp;{{ rubric.name }}</a>
+    {% endfor %}
+</div>
+{% for bb in bbs %}
+    <div>
+        <h3>{{ bb.title }}</h3>
+        <p>{{ bb.content }}</p>
+        <p style="color: red;">Опубликовано: {{ bb.published|date:"d.m.Y H:i:s" }}</p>
+        
+    </div>
+{% endfor %}    
+</body>
+</html>

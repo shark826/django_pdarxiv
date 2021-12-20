@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+        <!---<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>-->
+        <title>Удалить дело</title>
+    </head>
+<body>
+    <header class="header">
+        <div class="container-md" >
+            <div class="row">
+              <div class="col-md text-center"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
+            </div>
+          </div>  
+    </header>
+    <div class="container formone" >
+        <!-- <div class="menu-left col-md-3">
+            Left Side Menu <br>
+            <p class="text-nowrap bd-highlight" style="width: 8rem;">РЕДАКТИРОВАТЬ</p> <br>
+            Left Side Menu <br>
+            <p>УДАЛИТЬ</p>  <br>
+            Left Side Menu <br>
+            <p><a href="{% url 'arxpd' %}"> К ПОИСКУ </a></p> 
+        </div> -->
+    <form class="formadd pt-3 pb-3" method="POST">
+        {% csrf_token %}
+        <p></p>
+        <h3>Удаляем дело под номером <span class="fw-bolder">{{ arxdelo.nom }}</span>?</h3>
+        <br>
+        <p class="fs-2" >Пенсионер: {{ arxdelo.fam }} {{ arxdelo.name }} {% if arxdelo.fname %}  {{ arxdelo.fname }} {% endif %} </p>
+        <br>
+        <input type="submit" class="btn btn-outline-danger" value="УДАЛИТЬ">&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-outline-secondary" href="{% url 'viewarxpd' arxdelo.id %}">ОТМЕНА</a>
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+    <!---<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>-->
+    <title>Просмотр дела # {{ arxdelo.nom}}</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container-md" >
+            <div class="row">
+              <div class="col-md text-center"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
+            </div>
+          </div>  
+    </header>
+    
+    <div class="container arxdelo">
+        <div class="menu-left col-md-3">
+            <br>
+            <p><a class="btnleftmenu btn btn-outline-primary btn-lg" href="{% url 'updatearxpd' arxdelo.id %}">РЕДАКТИРОВАТЬ</a></p>
+            <br>
+            <p><a class="btnleftmenu btn btn-outline-danger btn-lg" href="{% url 'deletearxpd' arxdelo.id %}">УДАЛИТЬ</a></p>
+             <br>
+            <p><a class="btnleftmenu btn btn-outline-secondary btn-lg" href="{% url 'arxpd' %}"> К ПОИСКУ </a></p>
+        </div>
+        <div class="arxdelo_f col-md-9">
+            <p></p>
+        <div class="p-3 arxdelo_header">
+            <p>{{ arxdelo.nom}} <span class="arxdelo_fv">- АРХИВНЫЙ НОМЕР</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span class="arxdelo_fv-small">СНИЛС: </span>{{ arxdelo.snils}}</p>
+        </div>
+        <div class="border border-bottom p-3">
+            <p><span class="arxdelo_ft border-bottom-2">Ф.И.О.</span><span class="arxdelo_fv">Фамилия :</span>{{ arxdelo.fam}}</p>
+            <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Имя :</span>{{ arxdelo.name}}</p>
+            <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Отчество :</span>{% if arxdelo.fname %}{{ arxdelo.fname }}{% endif %}</p>
+            <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Дата рождения:</span>{{ arxdelo.dr|date:"d.m.Y"}} <span class="arxdelo_fv">&nbsp;&nbsp;&nbsp;Дата смерти: </span>{{ arxdelo.ds|date:"d.m.Y"}}</p>
+        </div>
+        <div class="border-end border-start border-bottom p-3">
+        <p><span class="arxdelo_ft">Адрес: </span><span class="arxdelo_fv">Почтовый индекс </span>{{ arxdelo.zind}}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Населенный пункт</span>{{ arxdelo.gor }}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Улица</span>{{ arxdelo.ul }}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv-small">Дом</span>{{ arxdelo.dom }}&nbsp;&nbsp;
+            <span class="arxdelo_fv-small">Корпус</span>{% if arxdelo.kor %}  {{ arxdelo.kor }} {% endif %}&nbsp;&nbsp;
+            <span class="arxdelo_fv-small">Квартира</span>{% if arxdelo.kvar %}  {{ arxdelo.kvar }} {% endif %}</p>
+        </div>
+        <div class="border-end border-start border-bottom p-3">
+        <p><span class="arxdelo_fv">Вид пенсии </span>{{ arxdelo.nvidp}}</p>
+        <p><span class="arxdelo_fv">Дата назначения пенсии </span>{{ arxdelo.dnp|date:"d.m.Y"}}</p>
+        <p><span class="arxdelo_fv">Дата прекращения </span>{{ arxdelo.dlp|date:"d.m.Y"}}</p>
+        <p><span class="arxdelo_fv">Дата хранениня ПО </span>{{ arxdelo.dhp|date:"d.m.Y"}}</p>
+        </div>
+        <div class="border-end border-start border-bottom p-3">
+        <!---<p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Категории умершего</span>{% if arxdelo.link %} {{ arxdelo.link }} {% endif %}</p>--->
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Категория1 умершего</span>{% if arxdelo.link1 %} {{ arxdelo.link1 }} {% endif %}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Категория2 умершего</span>{% if arxdelo.link2 %} {{ arxdelo.link2 }} {% endif %}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Категория3 умершего</span>{% if arxdelo.link3 %} {{ arxdelo.link3 }} {% endif %}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Удостоверение участника ВОВ&nbsp;&nbsp;серия&nbsp;&nbsp;</span>{% if arxdelo.sud %} {{ arxdelo.sud }} {% endif %}&nbsp;&nbsp;Номер {% if arxdelo.nud %} {{ arxdelo.nud }} {% endif %}</p>
+        </div>
+        <div class="border-end border-start border-bottom p-3">
+        <span class="arxdelo_fv">Примечание:</span> <p></p>
+        <span class="arxdelo_prim">{% if arxdelo.post %} {{ arxdelo.post }} {% endif %}</span>
+        </div>
+        <br>
+        <br>
+       
+        </div>
+    </div>
+</body>
+</html>
