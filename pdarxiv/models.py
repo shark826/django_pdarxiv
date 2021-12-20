@@ -35,18 +35,18 @@ class Pd(models.Model):
     sud = models.CharField(null=True, blank=True, max_length=4, verbose_name="Серия удостоверения")
     nud = models.IntegerField(null=True, blank=True, verbose_name="Номер удостоверения")
     nvidp = models.ForeignKey('VidPens', null=True, on_delete=models.PROTECT, verbose_name="Вид пенсии")
-    date_create = models.DateTimeField(auto_now_add=True,)
-    user_create = models.ForeignKey('auth.user', on_delete=models.PROTECT, related_name='user_create')
-    date_update = models.DateTimeField(auto_now=True,)
-    user_update = models.ForeignKey('auth.user', null=True, on_delete=models.PROTECT, verbose_name="пользователь отредактировал", related_name='user_update',default=get_current_user)
+    date_create = models.DateField(auto_now_add=True,)
+    #user_create = models.ForeignKey('auth.user', on_delete=models.PROTECT, related_name='user_create')
+    date_update = models.DateField(auto_now=True,)
+    #user_update = models.ForeignKey('auth.user', null=True, on_delete=models.PROTECT, verbose_name="пользователь отредактировал", related_name='user_update',default=get_current_user)
 
     def save(self, *args, **kwargs):
         self.fam = self.fam.upper()
         self.name = self.name.upper()
         if self.fname:
             self.fname = self.fname.upper()
-        self.user_create = auth.username
-        self.user_update=auth.username
+        #self.user_create = auth.username
+        #self.user_update=auth.username
         #self.gor = self.gor.upper()
         #self.ul = self.ul.upper()
         super(Pd,self).save(*args, **kwargs)
