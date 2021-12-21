@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pdarxiv.apps.PdarxivConfig',
     'django_filters',
-    'bootstrapform'
+    'bootstrapform',
+    'ajax_select',
+    
 
 ]
 

@@ -1,3 +1,4 @@
+#from typing_extensions import Required
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
@@ -6,6 +7,7 @@ from django.forms import ModelForm, fields, models, widgets, DateField
 from django.db.models.fields import DateField, DecimalField
 from django.forms.widgets import DateInput, SelectDateWidget
 from .models import Pd, VidPens, CatPens, VocNsp, VocUlc
+from ajax_select.fields import AutoCompleteSelectMultipleField
 import datetime
 
 
@@ -166,6 +168,7 @@ class PdFormC(ModelForm):
 
 
 class PdForm(ModelForm):
+    gor = AutoCompleteSelectMultipleField('gor')
     dr = forms.DateField(label='Дата рождения', widget=forms.TextInput(attrs={'type': 'date'}))
     ds = forms.DateField(label='Дата смерти', widget=forms.TextInput(attrs={'type': 'date'}), required=False)
     dnp = forms.DateField(label='Дата назначения пенсии', widget=forms.TextInput(attrs={'type': 'date'}))
@@ -177,8 +180,10 @@ class PdForm(ModelForm):
 
     class Meta:
         model = Pd
-        fields = ('nom', 'snils', 'fam', 'name', 'fname', 'dr', 'ds', 'zind', 'gor', 'ul', 'dom', 'kor', 'kvar',
-                  'nvidp', 'dnp', 'dlp', 'dhp', 'drr', 'post', 'link', 'link1', 'link2', 'link3', 'sud', 'nud')
+        fields = ('nom', 'snils', 'fam', 'name', 'fname', 'dr', 'ds', 
+                  'zind', 'ul', 'dom', 'kor', 'kvar',
+                  'nvidp', 'dnp', 'dlp', 'dhp', 'drr', 'post', 
+                  'link', 'link1', 'link2', 'link3', 'sud', 'nud')
         labels = {'snils': 'Ну введи СНИЛС !!!', 'fam': 'А тут Фамилия'}
         # field_classes = {'nom': DecimalField}
         # widgets = {'snils': forms.TextInput(attrs={'data-mask':"000-000-000 00", 'size':"28"})}

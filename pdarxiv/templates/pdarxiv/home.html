@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+    <link rel="icon" href="{% static 'pdarxiv/favicon.ico' %}" type="image/x-icon">
 
 
     <title>Авторизация на сайте</title>
@@ -20,7 +21,7 @@
 <hr>
 <h3><a class="link-primary fw-bold" href="{% url 'arxpd' %}" style="text-decoration: none">Архив Закрытых дел</a></h3>
 <br>
-<h3><a class="link-primary fw-bold" href="{% url 'arxpd' %}" style="text-decoration: none">Архив Закрытых дел</a></h3>
+<h3><a class="link-primary fw-bold" href="{% url 'home' %}" style="text-decoration: none">Заглушка</a></h3>
 <br>
     {{ user.last_name}} {{ user.first_name}}
 </div>

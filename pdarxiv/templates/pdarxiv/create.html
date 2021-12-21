@@ -58,7 +58,7 @@
         {% endif %}
     <form class="formadd pt-3 pb-3" method="POST">
         {% csrf_token %}
-
+        {{ form.media }}
         <p>{{ form.nom}} - АРХИВНЫЙ НОМЕР &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;СНИЛС: {{ form.snils}}</p>
         <p><span class="fadr">Ф.И.О.</span><span class="fadrf">Фамилия </span>{{ form.fam}}</p>
         <p><span class="fadr"></span><span class="fadrf">Имя </span>{{ form.name}}</p>

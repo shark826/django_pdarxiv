@@ -2,6 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import logout
 from django.db.models.base import Model
+from django.db.models import Q 
 from django.views.generic.detail import DetailView
 from pdarxiv.models import Pd, VidPens
 
