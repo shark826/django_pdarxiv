@@ -131,3 +131,7 @@
 .tabdest tbody tr td {
     padding: 0.2rem 0.5rem;
 }
+
+.recstat:hover {
+    opacity: 45%;
+}

@@ -65,10 +65,10 @@
         <div class="border-end border-start border-bottom p-3">
         <span class="arxdelo_fv">Примечание:</span> <p></p>
         <span class="arxdelo_prim">{% if arxdelo.post %} {{ arxdelo.post }} {% endif %}</span>
-        </div>
+        </div><br>
+        <p class="recstat text-center fst-italic fs-5 shadow-sm p-3">Запись создана:  {{ arxdelo.user_create}} {{ arxdelo.date_create|date:"d-m-Y" }} г., Запись отредактирована:  {{ arxdelo.user_update}} {{ arxdelo.date_update|date:"d-m-Y" }} г.</p>
         <br>
-        <br>
-       
+              
         </div>
     </div>
 </body>

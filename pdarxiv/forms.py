@@ -168,7 +168,7 @@ class PdFormC(ModelForm):
 
 
 class PdForm(ModelForm):
-    gor = AutoCompleteSelectMultipleField('gor')
+    #gor = AutoCompleteSelectMultipleField('gor')
     dr = forms.DateField(label='Дата рождения', widget=forms.TextInput(attrs={'type': 'date'}))
     ds = forms.DateField(label='Дата смерти', widget=forms.TextInput(attrs={'type': 'date'}), required=False)
     dnp = forms.DateField(label='Дата назначения пенсии', widget=forms.TextInput(attrs={'type': 'date'}))
@@ -181,7 +181,7 @@ class PdForm(ModelForm):
     class Meta:
         model = Pd
         fields = ('nom', 'snils', 'fam', 'name', 'fname', 'dr', 'ds', 
-                  'zind', 'ul', 'dom', 'kor', 'kvar',
+                  'zind', 'gor','ul', 'dom', 'kor', 'kvar',
                   'nvidp', 'dnp', 'dlp', 'dhp', 'drr', 'post', 
                   'link', 'link1', 'link2', 'link3', 'sud', 'nud')
         labels = {'snils': 'Ну введи СНИЛС !!!', 'fam': 'А тут Фамилия'}

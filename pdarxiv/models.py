@@ -36,9 +36,9 @@ class Pd(models.Model):
     nud = models.IntegerField(null=True, blank=True, verbose_name="Номер удостоверения")
     nvidp = models.ForeignKey('VidPens', null=True, on_delete=models.PROTECT, verbose_name="Вид пенсии")
     date_create = models.DateField(auto_now_add=True,)
-    #user_create = models.ForeignKey('auth.user', on_delete=models.PROTECT, related_name='user_create')
+    user_create = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='user_create')
     date_update = models.DateField(auto_now=True,)
-    #user_update = models.ForeignKey('auth.user', null=True, on_delete=models.PROTECT, verbose_name="пользователь отредактировал", related_name='user_update',default=get_current_user)
+    user_update = models.ForeignKey(User, null=True, on_delete=models.PROTECT, verbose_name="пользователь отредактировал", related_name='user_update')
 
     def save(self, *args, **kwargs):
         self.fam = self.fam.upper()
