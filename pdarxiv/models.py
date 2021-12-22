@@ -45,7 +45,7 @@ class Pd(models.Model):
         self.name = self.name.upper()
         if self.fname:
             self.fname = self.fname.upper()
-        #self.user_create = auth.username
+        self.user_create = User.username.auto_created
         #self.user_update=auth.username
         #self.gor = self.gor.upper()
         #self.ul = self.ul.upper()
