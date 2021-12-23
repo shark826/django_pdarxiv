@@ -6,8 +6,12 @@ from django.utils import translation
 from django.core import validators
 from django.contrib.auth.models import User
 # Create your models here.
+from arxivpd import settings
+from django_currentuser.middleware import (get_current_user, get_current_authenticated_user)
+from django_currentuser.db.models import CurrentUserField
 
 class Pd(models.Model):
+    #User=settings.AU
     nom = models.IntegerField(unique = True, verbose_name="Номер дела")
     snils = models.CharField(max_length=14, verbose_name="СНИЛС", 
                             validators = [validators.RegexValidator(regex="^\d{3}-\d{3}-\d{3} \d{2}$")], 
@@ -36,20 +40,23 @@ class Pd(models.Model):
     nud = models.IntegerField(null=True, blank=True, verbose_name="Номер удостоверения")
     nvidp = models.ForeignKey('VidPens', null=True, on_delete=models.PROTECT, verbose_name="Вид пенсии")
     date_create = models.DateField(auto_now_add=True,)
+    fuser_create = CurrentUserField(related_name='fuser_create')
     user_create = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='user_create')
     date_update = models.DateField(auto_now=True,)
+    fuser_update = CurrentUserField(on_update=True, related_name='fuser_update')
     user_update = models.ForeignKey(User, null=True, on_delete=models.PROTECT, verbose_name="пользователь отредактировал", related_name='user_update')
 
-    def save(self, *args, **kwargs):
+    def save(self,  *args, **kwargs):
         self.fam = self.fam.upper()
         self.name = self.name.upper()
         if self.fname:
             self.fname = self.fname.upper()
-        #self.user_create = User.username.auto_created
-        #self.user_update=auth.username
+        print(User.username)
+        #self.user_create = User.pk
+        #self.user_update = User.pk
         #self.gor = self.gor.upper()
         #self.ul = self.ul.upper()
-        super(Pd,self).save(*args, **kwargs)
+        super(Pd, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Архивные дела'

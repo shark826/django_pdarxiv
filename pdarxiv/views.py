@@ -101,6 +101,7 @@ class PdCreateView(CreateView):
     form_class = PdFormC
     success_url = reverse_lazy('arxpd')
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['vidp'] = VidPens.objects.all()
