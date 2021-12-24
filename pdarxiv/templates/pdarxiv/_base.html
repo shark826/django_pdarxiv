@@ -2,6 +2,7 @@
 {% load bootstrap %}
 
 {% block headersite %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,13 +12,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
     <link rel="icon" href="{% static 'pdarxiv/favicon.ico' %}" type="image/x-icon">
 
-    <title>Главная :: Архив Закрытых Пенсионных дел</title>
+    <title>{% block titlesite %}Главная :: Архив Закрытых Пенсионных дел{% endblock %}</title>
 </head>
 <body>
     <header class="header">
         <div class="container-md" >
             <div class="row">
-              <div class="col-md text-center p-2"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
+              <div class="col-md text-center p-2"> <h1>{% block slogan %} Реестр пенсионных дел, сданных в Архив {% endblock %}</h1></div>
             </div>
           </div>  
     </header>
@@ -33,9 +34,8 @@
     <p><a class="mt-1 btn btn-outline-danger btnspd" href="{% url 'arxpd' %}">Очистить фильтр</a></p>
     <hr>
     <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'addarxpd' %}">Добавить дело</a></p>
-      {% if user.get_username == 'test1' %}
     <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'opis' %}">Дела на унижтожение</a></p>
-       {% endif %}
+     
 </form>
 {% endblock%}
 {% block pdlist%}

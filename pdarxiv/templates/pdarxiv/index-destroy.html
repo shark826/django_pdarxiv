@@ -1,26 +1,9 @@
+{% extends "pdarxiv/_base.html" %}
 {% load static %}
 {% load bootstrap %}
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
-    <link rel="icon" href="{% static 'pdarxiv/favicon.ico' %}" type="image/x-icon">
-    <title>Формирование описи</title>
-</head>
-<body>
-    <header class="header">
-        <div class="container-md" >
-            <div class="row">
-              <div class="col-md text-center"> <h1>Формирование описи выплатных дел с истекшим сроком хранения, подлежащих уничтожению</h1></div>
-            </div>
-          </div>  
-    </header>
-    
-   
+   {% block titlesite%} Опись дел на уничтожение {% endblock %}
+   {% block slogan%} Опись дел на уничтожение {% endblock %}
+    {% block leftsidebar%}
     <form method="get" class="formsearch mt-3 mx-4 lh-base">
       <div class="text-uppercase text-center fw-bold pad">дела на уничтожение</div><br>
       {{ filter.form|bootstrap }}
@@ -31,12 +14,9 @@
       <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'arxpd' %}">Реестр арх. дел</a></p>
     </form>
      <div class="container-md pdlistdestroy" >
-    <div class="strokauser">
-        {{ p.next_page_number }} {{ user.first_name}} {{ user.groups.id}}
-        {% if user.is_authenticated %}
-        Hi {{ user.username }}! <a href="{% url 'logout' %}">Log Out</a>
-        {% endif %} </div>
+    {% endblock leftsidebar%}
 
+    {% block contentsite%}
     {% if filter.qs.count < pdsd.count %}
 
         <table class="table table-responsive-sm caption-top table-striped tabdest">
@@ -83,8 +63,5 @@
       <h1 class="text-center fw-bold">на выборку дел</h1><br>
       </div>
       
-      {% endif %}      
-</body>
-<script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
-</html>
+      {% endif %}
+      {% endblock contentsite%}      

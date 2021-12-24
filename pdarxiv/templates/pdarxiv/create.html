@@ -1,47 +1,12 @@
+{% extends "pdarxiv/_basearxdelo.html" %}
 {% load static %}
+{% block titlesite %}Создание архивного дела{% endblock %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
-    <link rel="icon" href="{% static 'pdarxiv/favicon.ico' %}" type="image/x-icon">
-    <!---<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>-->
+{% block slogan %}Создание архивного дела {% endblock %}
+{% block contentdelo%}
 
-    <title>Добавить дело</title>
-</head>
-<body>
-    <header class="header">
-        <div class="container-md" >
-            <div class="row">
-              <div class="col-md text-center mainhedslogan"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
-            </div>
-          </div>  
-    </header>
     <div class="container formone" >
-        <!-- <div class="menu-left col-md-3">
-            Left Side Menu <br>
-            <p class="text-nowrap bd-highlight" style="width: 8rem;">РЕДАКТИРОВАТЬ</p> <br>
-            Left Side Menu <br>
-            <p>УДАЛИТЬ</p>  <br>
-            Left Side Menu <br>
-            <p><a href="{% url 'arxpd' %}"> К ПОИСКУ </a></p> 
-        </div> -->
-        {{ user.get_username}}
-        <!--{% if form.errors %}
 
-         <div class="err1 bg-warning">
-             При сохранении дела есть ошибки: <br>
-             <span class="text-danger"> {{ form.nom.errors }}</span>
-             <span class="text-danger">{{ form.snils.errors }}</span>
-             <span class="text-danger"> {{ form.dlp.errors }}</span>
-              <span class="text-danger"> {{ form.dhp.errors }}</span>
-             <span class="text-danger"> {{ form.non_field_errors }}</span>
-         </div>
-        {% endif %}  -->
         {% if form.errors %}
             {% for field in form %}
                 {% for error in field.errors %}
@@ -92,8 +57,8 @@
         
     </form>
     </div>
+{% endblock contentdelo%}    
+{% block footersite %}
     <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
-</body>
-</html>
-
+{% endblock %}  
