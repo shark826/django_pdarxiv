@@ -1,0 +1,60 @@
+{% load static %}
+{% load bootstrap %}
+
+{% block headersite %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pdarxiv/style.css' %}">
+    <link rel="icon" href="{% static 'pdarxiv/favicon.ico' %}" type="image/x-icon">
+
+    <title>Главная :: Архив Закрытых Пенсионных дел</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container-md" >
+            <div class="row">
+              <div class="col-md text-center p-2"> <h1>Реестр пенсионных дел, сданных в Архив</h1></div>
+            </div>
+          </div>  
+    </header>
+{% endblock %}
+{% block leftsidebar%}
+<form method="get" class="formsearch mt-3 mx-4 lh-1">
+    <div class="text-uppercase fw-bold text-center pad">поиск архивных дел</div><br>
+
+    {{ filter.form|bootstrap }}
+      <!---{{ filter.form.nom|bootstrap }}-->
+    <br>
+    <button type="submit" class="btn btn-outline-primary btnspd">Поиск</button>
+    <p><a class="mt-1 btn btn-outline-danger btnspd" href="{% url 'arxpd' %}">Очистить фильтр</a></p>
+    <hr>
+    <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'addarxpd' %}">Добавить дело</a></p>
+      {% if user.get_username == 'test1' %}
+    <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'opis' %}">Дела на унижтожение</a></p>
+       {% endif %}
+</form>
+{% endblock%}
+{% block pdlist%}
+<div class="container-md pdlist" >
+    <div class="strokauser">
+        {{ p.next_page_number }} {{ user.first_name}} {{ user.groups.id}}
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}! <a href="{% url 'logout' %}">Log Out</a>
+    {% endif %}
+    </div>
+{% endblock %}
+
+
+
+{% block contentsite%}
+{% endblock contentsite%}
+{% block footersite %}
+</body>
+    <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
+</html>
+{% endblock %}
