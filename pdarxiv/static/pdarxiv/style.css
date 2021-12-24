@@ -2,6 +2,10 @@
     background-color: #3443af;
     color:white;
 }
+.mainhedslogan {
+    letter-spacing: 0.25rem;
+    font-weight: 900;
+}
 .strokauser {
     text-align: right;
     padding-right: 2rem;
