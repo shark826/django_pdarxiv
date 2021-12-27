@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import logout
+from django.core import paginator
 from django.db.models.base import Model
 from django.db.models import Q 
 from django.views.generic.detail import DetailView
@@ -77,8 +78,18 @@ class PdListDestroy(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['filter'] = PdFilterDestroy(self.request.GET, queryset=self.get_queryset())
+        context['filter'] = PdFilterDestroy(self.request.GET, 
+                                            queryset=self.get_queryset())
+        paginator = Paginator(filter, 15)
+        
 
+        page = self.request.GET.get('page')
+        try:
+            response = paginator.page(page)
+        except PageNotAnInteger:
+            response = paginator.page(1)
+        except EmptyPage:
+            response = paginator.page(paginator.num_pages)    
         return context
 
 
@@ -141,9 +152,10 @@ class PdDeleteView(DeleteView):
 
 
 def my_search(request):
+
     # BTW you do not need .all() after a .filter()
     # local_url.objects.filter(global_url__id=1) will do
-    filtered_qs = filters.PdFilter(
+    filtered_qs = filters.PdFilterDestroy(
                       request.GET,
                       queryset=Pd.objects.all()
                   ).qs
@@ -163,3 +175,23 @@ def my_search(request):
         'pdarxiv/search.html',
         {'response': response}
     )
+
+
+class FilteredListView(ListView):
+    filterset_class = None
+
+    def get_queryset (self):
+        # Get the queryset however you usually would. For example:
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for later.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context['filterset'] = self.filterset
+        return 
