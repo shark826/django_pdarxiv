@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls import url
-from pdarxiv.views import PdCreateView, PdListDestroy, PdDetailView, index0, PdList, PdUpdateView, PdDeleteView, \
+from pdarxiv.views import PdCreateView, PdListDestroy, PdDetailView, \
+                        index0, PdList, PdUpdateView, PdDeleteView, \
     my_search, LoginUser, logout_view
 from django.contrib import admin
 from django.urls import path
@@ -25,7 +26,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('arxpd/', index, name='arxpd'),
-    path('arxpd/', login_required(PdList.as_view()), name='arxpd'),
+    path('arxpd/', login_required(PdList), name='arxpd'),
     path('arxpd/opis', PdListDestroy.as_view(), name='opis'),
     path('arxpd/<int:pk>/', PdDetailView.as_view(), name='viewarxpd'),
     path('arxpd/add/', PdCreateView.as_view(), name='addarxpd'),

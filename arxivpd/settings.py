@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import sys
+
+sys.modules['fontawesome_free'] = __import__('fontawesome-free')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.conf.global_settings import LOGOUT_REDIRECT_URL
 
@@ -41,6 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrapform',
     'ajax_select',
+    "fontawesome_free",
     
 
 ]
