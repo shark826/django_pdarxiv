@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrapform',
     'ajax_select',
+    'fontawesome-free',
     
 
 ]

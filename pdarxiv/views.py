@@ -48,23 +48,48 @@ def logout_view(request):
     #return HttpResponse(template.render())
 
 ### Главный экран, поиск и добавление дел
+'''
 class PdList(ListView):
     model = Pd
     template_name = 'pdarxiv/index.html'
-    context_object_name = 'pds'
-    paginate_by = 35
+    #context_object_name = 'pds'
+    paginate_by = 15
 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        print(**kwargs)
-        context['filter'] = PdFilter(self.request.GET, queryset=self.get_queryset())
         context['allrec'] = Pd.objects.all()
-        context['p'] = Paginator(context, 35)
-        #page = p.page(1)
-        #context = {'page' : page}
+        filtered_persons = PdFilter(self.request.GET,
+                                    queryset=self.get_queryset().order_by('nom'))
+        context['filter'] = filtered_persons
+        paginated_filtered_persons = Paginator(filtered_persons.qs, 15)
+        print(paginated_filtered_persons.num_pages)
+        page_number = self.request.GET.get('page')
+        print(page_number)
+        person_page_obj = paginated_filtered_persons.get_page(page_number)
+        #context['person_page_obj'] = person_page_obj
+        context['pds'] = person_page_obj
         return context
+'''
+def PdList(request):
+    context = {}
+    all_reccords = Pd.objects.all().count()
+    filtered_persons =  PdFilter(
+        request.GET,
+        queryset = Pd.objects.all().order_by('fam', 'name', 'fname')
+    )
+    context['allrec'] = all_reccords
+    context['filter'] = filtered_persons
+
+    paginated_filtered_persons = Paginator(filtered_persons.qs, 20)
+    print(paginated_filtered_persons.count)
+    page_number = request.GET.get('page')
+    print(page_number)
+    person_page_obj = paginated_filtered_persons.get_page(page_number)
+
+    context['person_page_obj'] = person_page_obj
+    return render(request,'pdarxiv/index.html',context=context)
+
 
 ### Формирование оиписи выплатных дел с истекшим сроком хранения, подлежащих уничтожению
 class PdListDestroy(ListView):

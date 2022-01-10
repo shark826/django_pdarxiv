@@ -7,7 +7,7 @@
   
 
     {% block contentsite%}
-    {% if filter.qs.count < allrec.count %}
+     <!---{% if person_page_obj.count < allrec.count %}-->
     <!---{% if is_paginated %}
     Page {{ page_obj.number }} of {{ paginator.num_pages }}
    {% endif %}-->
@@ -16,7 +16,7 @@
         <div class="row pdtbl">
 
              <table class="table table-responsive-sm caption-top table-striped tabdest">
-             <caption class="fw-bold">Найдено - {{ filter.qs.count }} дел из  {{ pds.count }} bbb всего {{ allrec.count }}</caption>
+             <caption class="fw-bold">Найдено - {{ filter.qs.count }} дел из  {{ allrec }}</caption>
              <thead class="text-center table-primary table-bordered border-primary align-middle">
                 <tr class="border-primary table-bordered">
                   <th class="col-sm-2 border-primary text-center fw-bold border-2 align-middle">СНИЛС</th>
@@ -26,7 +26,7 @@
                  </tr>
              </thead>
              <tbody>
-              {% for pd in filter.qs %}
+              {% for pd in person_page_obj %}
                 <tr>
                     <td class="col-md-2 text-center">{{ pd.snils }}</td>
                     <td class="col-md-1 text-end"><a href="{% url 'viewarxpd' pd.id %}">{{ pd.nom }}</a></td>
@@ -41,7 +41,7 @@
 
         </table>
         </div>
-      {% else %}
+    <!---   {% else %}
       <div class="container-md">
         <p></p>
         <h1 class="text-center fw-bold">{{ user.last_name}} {{ user.first_name}}, начните работу с поиска архивного дела</h1>
@@ -50,5 +50,5 @@
         <p class="text-center"><a class="mt-1 btn btn-outline-primary text-uppercase" href="{% url 'addarxpd' %}">Добавить дело</a></p>
       </div>
       
-      {% endif %}
+     {% endif %}-->
     {% endblock %}      

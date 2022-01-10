@@ -1,6 +1,6 @@
 {% load static %}
 {% load bootstrap %}
-
+{% load filter_extras %}
 {% block headersite %}
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +50,36 @@
 
 
 
-{% block contentsite%}
-{% endblock contentsite%}
+{% block contentsite %}
+{% endblock contentsite %}
+{% block paginator %}
+    <div class="container-lg text-center">
+            <div class="row pagination text-decoration-none">
+                <div class="col"></div>
+            {% if person_page_obj.has_previous %}
+                <div class="col-lg-2 border"><a class="text-decoration-none" href="{% fil_url 1 'page' request.GET.urlencode %}"><i class="fas fa-fast-backward"></i>&nbsp; первая</a></div>
+                <div class="col border"><a class="text-decoration-none" href="{% fil_url person_page_obj.previous_page_number 'page' request.GET.urlencode %}"><i class="fas fa-angle-double-left"></i></a></div>
+            {% else %}
+                <div class="col-lg-2 border"><i class="fas fa-fast-backward"></i>&nbsp; первая</div>
+                <div class="col border"><i class="fas fa-angle-double-left"></i></a></div>
+            {% endif %}
+
+            <div class="col-lg-4 border">
+                страница  <span class="fw-bold">{{ person_page_obj.number }}</span> из <span class="fw-bold">{{ person_page_obj.paginator.num_pages }}</span>
+            </div>
+
+
+            {% if person_page_obj.has_next %}
+                <div class="col border"><a class="text-decoration-none" href="{% fil_url person_page_obj.next_page_number 'page' request.GET.urlencode %}"><i class="fas fa-angle-double-right"></i></a></div>
+                <div class="col-lg-2 border"><a class="text-decoration-none" href="{% fil_url person_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">последняя &nbsp;<i class="fas fa-fast-forward"></i></a></div>
+            {% else %}
+                <div class="col border"><i class="fas fa-angle-double-right"></i></a></div>
+                <div class="col-lg-2 border">последняя &nbsp;<i class="fas fa-fast-forward"></i></a></div>
+            {% endif %}
+            <div class="col"></div>
+            </div>
+    </div>
+{% endblock paginator %}
 {% block footersite %}
 </body>
     <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
