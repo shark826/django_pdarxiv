@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import paginator
 from django.db.models.base import Model
 from django.db.models import Q 
@@ -146,7 +147,8 @@ class PdUpdateView(UpdateView):
         return reverse_lazy('viewarxpd', args = (self.object.id,))
 
 ### Удаление архдела
-class PdDeleteView(DeleteView):
+class PdDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'pdarxiv.delete_pd'
     model = Pd
     template_name = 'pdarxiv/delete-arxdelo.html'
     context_object_name = 'arxdelo'
