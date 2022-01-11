@@ -25,7 +25,6 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('arxpd/', index, name='arxpd'),
     path('arxpd/', login_required(PdList), name='arxpd'),
     path('arxpd/opis', PdListDestroy.as_view(), name='opis'),
     path('arxpd/<int:pk>/', PdDetailView.as_view(), name='viewarxpd'),
