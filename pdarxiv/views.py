@@ -82,9 +82,7 @@ def PdList(request):
     context['filter'] = filtered_persons
 
     paginated_filtered_persons = Paginator(filtered_persons.qs, 20)
-    print(paginated_filtered_persons.count)
     page_number = request.GET.get('page')
-    print(page_number)
     person_page_obj = paginated_filtered_persons.get_page(page_number)
 
     context['person_page_obj'] = person_page_obj
@@ -105,30 +103,9 @@ class PdListDestroy(ListView):
 
         context['filter'] = PdFilterDestroy(self.request.GET, 
                                             queryset=self.get_queryset())
-        paginator = Paginator(filter, 15)
-        
 
-        page = self.request.GET.get('page')
-        try:
-            response = paginator.page(page)
-        except PageNotAnInteger:
-            response = paginator.page(1)
-        except EmptyPage:
-            response = paginator.page(paginator.num_pages)    
         return context
 
-
-class PdSearch(ListView):
-    model = Pd
-    template_name = 'pdarxiv/PdSearch.html'
-    
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        #print(context)
-        context ['filter'] = PdFilter(self.request.GET, queryset=self.get_queryset())
-        return context
 
 ### Добавление архдела
 class PdCreateView(CreateView):
