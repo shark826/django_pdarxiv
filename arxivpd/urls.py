@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls import url
 from pdarxiv.views import PdCreateView, PdListDestroy, PdDetailView, \
                         index0, PdList, PdUpdateView, PdDeleteView, \
-    my_search, LoginUser, logout_view
+   LoginUser, logout_view
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView
@@ -31,7 +31,6 @@ urlpatterns = [
     path('arxpd/add/', PdCreateView.as_view(), name='addarxpd'),
     path('arxpd/<int:pk>/update', PdUpdateView.as_view(), name='updatearxpd'),
     path('arxpd/<int:pk>/delete', PdDeleteView.as_view(), name='deletearxpd'),
-    path('search/', my_search, name='search'),
     path('', login_required(index0),name='home'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', login_required(logout_view), name='logout'),

@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, redirect_to_login
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import paginator
+
 from django.db.models.base import Model
 from django.db.models import Q 
 from django.views.generic.detail import DetailView
@@ -128,3 +130,7 @@ class PdDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'pdarxiv/delete-arxdelo.html'
     context_object_name = 'arxdelo'
     success_url = reverse_lazy('arxpd')
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You dont have permission to do this')
+        return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())

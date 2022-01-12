@@ -39,11 +39,11 @@
     {% endblock %}
 <hr>
     {% block paginator %}
-        <div class="container-lg text-center">
+        <div class="container-lg text-center align-middle">
                 <div class="row pagination text-decoration-none">
-                    <div class="col"></div>
+                    <div class="col align-middle"></div>
                 {% if person_page_obj.has_previous %}
-                    <div class="col-lg-2 border"><a class="text-decoration-none" href="{% fil_url 1 'page' request.GET.urlencode %}"><i class="fas fa-fast-backward"></i>&nbsp; первая</a></div>
+                    <div class="col-lg-2 border align-middle"><a class="text-decoration-none" href="{% fil_url 1 'page' request.GET.urlencode %}"><i class="fas fa-fast-backward"></i>&nbsp; первая</a></div>
                     <div class="col border"><a class="text-decoration-none" href="{% fil_url person_page_obj.previous_page_number 'page' request.GET.urlencode %}"><i class="fas fa-angle-double-left"></i></a></div>
                 {% else %}
                     <div class="col-lg-2 border link-secondary"><i class="fas fa-fast-backward"></i>&nbsp; первая</div>
