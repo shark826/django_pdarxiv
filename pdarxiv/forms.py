@@ -290,6 +290,7 @@ class PdForm(ModelForm):
             raise ValidationError(f"Контрольное число в СНИЛС д.б. {ks_pfr}, а вы написали {ks_pd}")
         return snils
 
+'''
     @property
     def clean_dhp(self):
 
@@ -311,5 +312,5 @@ class PdForm(ModelForm):
             if nvidp == 'Пенсия по потери кормильца':
                 raise ValidationError('Дата хранения у Пенсия по потери кормильца д.б. 15 лет')
         return dhp
-
+'''
 ##input_formats=['%d/%m/%Y'],
