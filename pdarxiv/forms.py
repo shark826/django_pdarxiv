@@ -78,7 +78,7 @@ class PdFormC(ModelForm):
     # проверка полей на корректность ввода по правилам ПФР
     def clean(self):
         cleaned_data = super().clean()
-        dhp: datetime = self.cleaned_data['dhp']
+        #dhp: datetime = self.cleaned_data['dhp']
         dnp: datetime = self.cleaned_data['dnp']
         dr: datetime = self.cleaned_data['dr']
         ds: datetime = self.cleaned_data['ds']
@@ -94,8 +94,6 @@ class PdFormC(ModelForm):
         if nvidp == 'vp':
             print('nmhgmgtratatata')
 
-        if dhp.year - dlp.year > 20:
-            raise ValidationError('Дата хранения больше 20 лет')
 
         if dr > datetime.date.today():
             raise ValidationError('Дата рождения в будующем!!!')
@@ -149,6 +147,23 @@ class PdFormC(ModelForm):
             raise ValidationError(f"Контрольное число в СНИЛС д.б. {ks_pfr}, а вы написали {ks_pd}")
         return snils
 
+
+    def clean_dhp(self):
+
+        dhp: datetime = self.cleaned_data['dhp']
+        nvidp = self.cleaned_data['nvidp']
+        dlp: datetime = self.cleaned_data['dlp']
+        ds: datetime = self.cleaned_data['ds']
+        kodpens = str(VidPens.objects.get(nvidp=nvidp))
+        srok = (dhp - dlp).days//365
+        if kodpens == "Пенсия по возрасту":
+            if srok < 20:
+                raise ValidationError(f'Дата хранения у "{nvidp}" д.б. не менее 20 лет')
+        if kodpens == "Пенсия по инвалидности":
+            if srok < 10:
+                raise ValidationError(f'Дата хранения у "{nvidp}" д.б. не менее 10 лет')
+
+        return dhp
     '''
     def clean_dlp(self):
         dlp: datetime = self.cleaned_data['dlp']
