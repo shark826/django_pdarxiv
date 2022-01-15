@@ -15,9 +15,9 @@
       <hr>
       <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'arxpd' %}">Реестр арх. дел</a></p>
     </form>
-     <div class="container-md pdlistdestroy" >
-    {% endblock leftsidebar%}
 
+    {% endblock leftsidebar%}
+    <div class="container-sm pdlistdestroy" >
     {% block contentsite%}
     {% if filter.qs.count < pdsd.count %}
 
