@@ -290,27 +290,23 @@ class PdForm(ModelForm):
             raise ValidationError(f"Контрольное число в СНИЛС д.б. {ks_pfr}, а вы написали {ks_pd}")
         return snils
 
-'''
-    @property
+#'''
+    #@property
     def clean_dhp(self):
 
         dhp: datetime = self.cleaned_data['dhp']
         nvidp = self.cleaned_data['nvidp']
         dlp: datetime = self.cleaned_data['dlp']
         ds: datetime = self.cleaned_data['ds']
-        srok = dhp.year - dlp.year
-        print(f'{nvidp} срок хранения - {srok} лет')
-        print(nvidp)
-        if srok < 20:
-            print('666666')
-            if nvidp == 'Пенсия по возрасту':
-                print('true uslovie')
-                raise ValidationError(f'Дата хранения у {nvidp} д.б. 20 лет')
-            if nvidp == 'qq':
-                print('true uslovie qq')
-                raise ValidationError(f'Дата хранения у {nvidp} д.б. 10 лет')
-            if nvidp == 'Пенсия по потери кормильца':
-                raise ValidationError('Дата хранения у Пенсия по потери кормильца д.б. 15 лет')
+        kodpens = str(VidPens.objects.get(nvidp=nvidp))
+        srok = (dhp - dlp).days//365
+        if kodpens == "Пенсия по возрасту":
+            if srok < 20:
+                raise ValidationError(f'Дата хранения у "{nvidp}" д.б. не менее 20 лет')
+        if kodpens == "Пенсия по инвалидности":
+            if srok < 10:
+                raise ValidationError(f'Дата хранения у "{nvidp}" д.б. не менее 10 лет')
+
         return dhp
-'''
+#'''
 ##input_formats=['%d/%m/%Y'],
