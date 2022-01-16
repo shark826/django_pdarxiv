@@ -91,10 +91,6 @@ class PdFormC(ModelForm):
         if not zind.isdigit():
             raise ValidationError(f"Почтовый индекс должен содержать только цифры, а не Ваше {zind}")
 
-        if nvidp == 'vp':
-            print('nmhgmgtratatata')
-
-
         if dr > datetime.date.today():
             raise ValidationError('Дата рождения в будующем!!!')
 
@@ -106,7 +102,7 @@ class PdFormC(ModelForm):
         if dlp.day > 1:
             print(self.cleaned_data['nvidp'])
             raise ValidationError('Дата прекращеня должна быть первого числа')
-            # raise ValidationError('Дата прекращеня должна приходиться на начало месяца')
+
 
         return
 
@@ -238,22 +234,15 @@ class PdForm(ModelForm):
     # проверка полей на корректность ввода по правилам ПФР
     def clean(self):
         cleaned_data = super().clean()
-        # dhp: datetime = self.cleaned_data['dhp']
         dnp: datetime = self.cleaned_data['dnp']
         dr: datetime = self.cleaned_data['dr']
         ds: datetime = self.cleaned_data['ds']
         dlp: datetime = self.cleaned_data['dlp']
-        # nvidp = self.cleaned_data['nvidp']
         zind = self.cleaned_data['zind']
-        # nvidp = nvidp.strim()
 
         if not zind.isdigit():
             raise ValidationError(f"Почтовый индекс должен содержать только цифры, а не Ваше  {zind}")
 
-        '''
-        if dhp.year - dlp.year > 20:
-            raise ValidationError('Дата хранения больше 20 лет')
-        '''
         if dr > datetime.date.today():
             raise ValidationError('Дата рождения в будующем!!!')
 
@@ -264,7 +253,6 @@ class PdForm(ModelForm):
             raise ValidationError('Дата прекращеня должна быть больше даты назначения')
         if dlp.day > 1:
             raise ValidationError('Дата прекращеня должна быть первого числа')
-            # raise ValidationError('Дата прекращеня должна приходиться на начало месяца')
 
         return cleaned_data
 

@@ -3,7 +3,7 @@
 {% load filter_extras %}
 {% block headersite %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,41 +20,50 @@
     <header class="header">
         <div class="container-md" >
             <div class="row">
-              <div class="col-md text-center p-2"> <h1>{% block slogan %} Реестр пенсионных дел, сданных в Архив {% endblock %}</h1></div>
+              <div class="col-md text-center p-2"> <h2>{% block slogan %} Реестр пенсионных дел, сданных в Архив {% endblock %}</h2></div>
             </div>
           </div>  
     </header>
 {% endblock %}
-{% block leftsidebar%}
-<form method="get" class="formsearch mt-3 mx-4 lh-1">
-    <div class="text-uppercase fw-bold text-center pad">поиск архивных дел</div><br>
+<div class="container pdlist">
+    <div class="row">
+        <div class="col-2">
+            {% block leftsidebar%}
+            <form method="get" class="formsearch mt-3 lh-1">
+                <div class="text-uppercase fw-bold text-center pad">поиск архивных дел</div><br>
 
-    {{ filter.form|bootstrap }}
-      <!---{{ filter.form.nom|bootstrap }}-->
-    <br>
-    <button type="submit" class="btn btn-outline-primary btnspd">Поиск</button>
-    <p><a class="mt-1 btn btn-outline-danger btnspd" href="{% url 'arxpd' %}">Очистить фильтр</a></p>
-    <hr>
-    <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'addarxpd' %}">Добавить дело</a></p>
-    <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'opis' %}">Дела на унижтожение</a></p>
-     
-</form>
-{% endblock%}
-{% block pdlist%}
-<div class="container-md pdlist" >
-    <div class="strokauser">
-        {{ p.next_page_number }} {{ user.first_name}} {{ user.groups.id}}
-    {% if user.is_authenticated %}
-        Hi {{ user.username }}! <a href="{% url 'logout' %}">Log Out</a>
-    {% endif %}
+                {{ filter.form|bootstrap }}
+                  <!---{{ filter.form.nom|bootstrap }}-->
+                <br>
+                <button type="submit" class="btn btn-outline-primary btnspd">Поиск</button>
+                <p><a class="mt-1 btn btn-outline-danger btnspd" href="{% url 'arxpd' %}">Очистить фильтр</a></p>
+                <hr>
+                <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'addarxpd' %}">Добавить дело</a></p>
+                <p><a class="mt-1 btn btn-outline-primary btnspd" href="{% url 'opis' %}">Дела на унижтожение</a></p>
+
+            </form>
+            {% endblock%}
+        </div>
+        <div class="col-10">
+            {% block pdlist%}
+                <div class="strokauser">
+                {{ p.next_page_number }} {{ user.first_name}} {{ user.groups.id}}
+                {% if user.is_authenticated %}
+                    <span class="border border-1 p-3 rounded-start rounded-3"> Hi <span class="fw-bold"> {{ user.username }} ! </span>&shortparallel;&nbsp;</span>
+                    <a class="btn btn-sm btn-outline-danger text-uppercase" href="{% url 'logout' %}">LogOut</a>
+                {% endif %}
+                </div>
+            {% endblock %}
+
+            {% block contentsite %}
+            {% block paginator %}
+            {% endblock paginator %}
+            {% endblock contentsite %}
+
+
+        </div>
     </div>
-{% endblock %}
-
-{% block contentsite %}
-{% endblock contentsite %}
-
-{% block paginator %}
-{% endblock paginator %}
+</div>
 {% block footersite %}
 </body>
     <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>

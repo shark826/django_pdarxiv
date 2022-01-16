@@ -6,7 +6,7 @@
    {% block titlesite%} Опись дел на уничтожение {% endblock %}
    {% block slogan%} Опись дел на уничтожение {% endblock %}
     {% block leftsidebar%}
-    <form method="get" class="formsearch mt-3 mx-4 lh-base">
+    <form method="get" class="formsearch mt-3 lh-base">
       <div class="text-uppercase text-center fw-bold pad">дела на уничтожение</div><br>
       {{ filter.form|bootstrap }}
       <br>
@@ -19,6 +19,7 @@
     {% endblock leftsidebar%}
     <div class="container-sm pdlistdestroy" >
     {% block contentsite%}
+        <div class="row pdtbl">
     {% if filter.qs.count < pdsd.count %}
 
         <table class="table table-responsive-sm caption-top table-striped tabdest">

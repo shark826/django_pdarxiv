@@ -9,23 +9,23 @@
     {% block contentsite %}
        <div class="row pdtbl">
 
-             <table class="table table-responsive-sm caption-top table-striped tabdest">
+             <table class="table table-responsive caption-top table-striped tabdest">
              <caption class="fw-bold">Найдено - {{ filter.qs.count }} дел из  {{ allrec }}</caption>
              <thead class="text-center table-primary table-bordered border-primary align-middle">
                 <tr class="border-primary table-bordered">
-                  <th class="col-sm-2 border-primary text-center fw-bold border-2 align-middle">СНИЛС</th>
-                  <th class="col-sm-1 border-primary text-center fw-bold border-2 align-middle">Ном. архдела</th>
-                  <th class="col-sm-4 border-primary text-center fw-bold border-2 align-middle">ФИО Пенсионера</th>
-                  <th class="col-sm-5 border-primary text-center fw-bold border-2 align-middle">Адрес Пенсионера</th>
+                  <th class="col-2 border-primary text-center fw-bold border-2 align-middle">СНИЛС</th>
+                  <th class="col-1 border-primary text-center fw-bold border-2 align-middle">Ном. архдела</th>
+                  <th class="col-4 border-primary text-center fw-bold border-2 align-middle">ФИО Пенсионера</th>
+                  <th class="col-5 border-primary text-center fw-bold border-2 align-middle">Адрес Пенсионера</th>
                  </tr>
              </thead>
              <tbody>
               {% for pd in person_page_obj %}
                 <tr>
-                    <td class="col-md-2 text-center">{{ pd.snils }}</td>
-                    <td class="col-md-1 text-end"><a href="{% url 'viewarxpd' pd.id %}">{{ pd.nom }}</a></td>
-                    <td class="col-md-4 text-start">{{ pd.fam|upper }} {{ pd.name|upper }} {% if pd.fname %} {{ pd.fname|upper }}{% endif %}</td>
-                    <td class="col-md-5 text-start"> {{pd.zind}}, {{ pd.gor }}, ул. {{ pd.ul }}, д. {{ pd.dom }}
+                    <td class="col-2 text-center">{{ pd.snils }}</td>
+                    <td class="col-1 text-end"><a href="{% url 'viewarxpd' pd.id %}">{{ pd.nom }}</a></td>
+                    <td class="col-4 text-start">{{ pd.fam|upper }} {{ pd.name|upper }} {% if pd.fname %} {{ pd.fname|upper }}{% endif %}</td>
+                    <td class="col-5 text-start"> {{pd.zind}}, {{ pd.gor }}, ул. {{ pd.ul }}, д. {{ pd.dom }}
                                                         {% if pd.kor %} корп. {{ pd.kor }}{% endif %}
                                                         {% if pd.kvar %}  кв.  {{ pd.kvar }}{% endif %}
                     </td>
@@ -35,34 +35,33 @@
 
         </table>
         </div>
-
-    {% endblock %}
-<hr>
+    <hr>
     {% block paginator %}
         <div class="container-lg text-center align-middle">
                 <div class="row pagination text-decoration-none">
                     <div class="col align-middle"></div>
                 {% if person_page_obj.has_previous %}
-                    <div class="col-lg-2 border align-middle"><a class="text-decoration-none" href="{% fil_url 1 'page' request.GET.urlencode %}"><i class="fas fa-fast-backward"></i>&nbsp; первая</a></div>
+                    <div class="col-2 border align-items-center"><a class="text-decoration-none" href="{% fil_url 1 'page' request.GET.urlencode %}"><i class="fas fa-fast-backward"></i>&nbsp; первая</a></div>
                     <div class="col border"><a class="text-decoration-none" href="{% fil_url person_page_obj.previous_page_number 'page' request.GET.urlencode %}"><i class="fas fa-angle-double-left"></i></a></div>
                 {% else %}
-                    <div class="col-lg-2 border link-secondary"><i class="fas fa-fast-backward"></i>&nbsp; первая</div>
+                    <div class="col-2 border link-secondary"><i class="fas fa-fast-backward"></i>&nbsp; первая</div>
                     <div class="col border link-secondary"><i class="fas fa-angle-double-left"></i></a></div>
                 {% endif %}
 
-                <div class="col-lg-4 border">
+                <div class="col-4 border">
                     страница  <span class="fw-bold">{{ person_page_obj.number }}</span> из <span class="fw-bold">{{ person_page_obj.paginator.num_pages }}</span>
                 </div>
 
 
                 {% if person_page_obj.has_next %}
                     <div class="col border"><a class="text-decoration-none" href="{% fil_url person_page_obj.next_page_number 'page' request.GET.urlencode %}"><i class="fas fa-angle-double-right"></i></a></div>
-                    <div class="col-lg-2 border"><a class="text-decoration-none" href="{% fil_url person_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">последняя &nbsp;<i class="fas fa-fast-forward"></i></a></div>
+                    <div class="col-2 border"><a class="text-decoration-none" href="{% fil_url person_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">последняя &nbsp;<i class="fas fa-fast-forward"></i></a></div>
                 {% else %}
                     <div class="col border link-secondary"><i class="fas fa-angle-double-right"></i></a></div>
-                    <div class="col-lg-2 border link-secondary">последняя &nbsp;<i class="fas fa-fast-forward"></i></a></div>
+                    <div class="col-2 border link-secondary">последняя &nbsp;<i class="fas fa-fast-forward"></i></a></div>
                 {% endif %}
                 <div class="col"></div>
                 </div>
         </div>
     {% endblock paginator %}
+    {% endblock contentsite %}
