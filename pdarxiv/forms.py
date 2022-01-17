@@ -307,7 +307,7 @@ class PdForm(ModelForm):
             if srok < 20:
                 raise ValidationError(f'Дата хранения у "{nvidp}" д.б. не менее 20 лет')
         if kodpens == "Пенсия по инвалидности":
-            if srok < 10:
+            if srok != 10:
                 raise ValidationError(f'Дата хранения у "{nvidp}" д.б. не менее 10 лет')
 
         return dhp
