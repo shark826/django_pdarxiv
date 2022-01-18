@@ -37,7 +37,7 @@
         <div class="arxdelo_f col-md-9">
             <p></p>
         <div class="p-3 arxdelo_header">
-            <p>{{ arxdelo.nom}} <span class="arxdelo_fv">- АРХИВНЫЙ НОМЕР</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span class="arxdelo_fv-small">СНИЛС: </span>{{ arxdelo.snils}}</p>
+            <p>{{arxdelo.nom}} <span class="arxdelo_fv">- АРХИВНЫЙ НОМЕР</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span class="arxdelo_fv-small">СНИЛС: </span>{{ arxdelo.snils}}</p>
         </div>
         <div class="border border-bottom p-3">
             <p><span class="arxdelo_ft border-bottom-2">Ф.И.О.</span><span class="arxdelo_fv">Фамилия :</span>{{ arxdelo.fam}}</p>
@@ -47,7 +47,7 @@
         </div>
         <div class="border-end border-start border-bottom p-3">
         <p><span class="arxdelo_ft">Адрес: </span><span class="arxdelo_fv">Почтовый индекс </span>{{ arxdelo.zind}}</p>
-        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Населенный пункт</span>{{ arxdelo.gor }}</p>
+        <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Населенный пункт</span>{{ gor }}</p>
         <p><span class="arxdelo_ft"></span><span class="arxdelo_fv">Улица</span>{{ arxdelo.ul }}</p>
         <p><span class="arxdelo_ft"></span><span class="arxdelo_fv-small">Дом</span>{{ arxdelo.dom }}&nbsp;&nbsp;
             <span class="arxdelo_fv-small">Корпус</span>{% if arxdelo.kor %}  {{ arxdelo.kor }} {% endif %}&nbsp;&nbsp;
@@ -78,5 +78,8 @@
 {% endblock contentdelo%}
 
 </body>
-{% block footersite %}{% endblock %}  
+{% block footersite %}
+    <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
+{% endblock %}
 </html>

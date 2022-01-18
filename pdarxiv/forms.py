@@ -7,7 +7,7 @@ from django.forms import ModelForm, fields, models, widgets, DateField
 from django.db.models.fields import DateField, DecimalField
 from django.forms.widgets import DateInput, SelectDateWidget
 from .models import Pd, VidPens, CatPens, VocNsp, VocUlc
-from ajax_select.fields import AutoCompleteSelectMultipleField
+from ajax_select.fields import AutoCompleteField
 import datetime
 
 
@@ -184,7 +184,7 @@ class PdFormC(ModelForm):
 
 
 class PdForm(ModelForm):
-    # gor = AutoCompleteSelectMultipleField('gor')
+    gor = AutoCompleteField('gor', required=False, help_text=None)
     dr = forms.DateField(label='Дата рождения', widget=forms.TextInput(attrs={'type': 'date'}))
     ds = forms.DateField(label='Дата смерти', widget=forms.TextInput(attrs={'type': 'date'}), required=False)
     dnp = forms.DateField(label='Дата назначения пенсии', widget=forms.TextInput(attrs={'type': 'date'}))
