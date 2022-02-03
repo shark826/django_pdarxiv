@@ -17,6 +17,7 @@ class LoginUserForm(AuthenticationForm):
 
 
 class PdFormC(ModelForm):
+    gor = AutoCompleteField('gor', required=False, help_text=None)
     dr = forms.DateField(label='Дата рождения', widget=forms.TextInput(attrs={'type': 'date'}))
     ds = forms.DateField(label='Дата смерти', widget=forms.TextInput(attrs={'type': 'date'}), required=False)
     dnp = forms.DateField(label='Дата назначения пенсии', widget=forms.TextInput(attrs={'type': 'date'}))
@@ -63,6 +64,9 @@ class PdFormC(ModelForm):
             'invalid': ("СНИЛС не того формата")
         }
         self.initial['nom'] = newnom
+
+        self.fields['ul'].queryset = VocUlc.objects.none()
+
 
     def newnom(self):
         nnom = self.fields['nom']
