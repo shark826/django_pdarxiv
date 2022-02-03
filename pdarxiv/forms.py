@@ -184,7 +184,7 @@ class PdFormC(ModelForm):
 
 
 class PdForm(ModelForm):
-    gor = AutoCompleteField('gor', required=False, help_text=None)
+    #gor = AutoCompleteField('gor', required=False, help_text=None)
     dr = forms.DateField(label='Дата рождения', widget=forms.TextInput(attrs={'type': 'date'}))
     ds = forms.DateField(label='Дата смерти', widget=forms.TextInput(attrs={'type': 'date'}), required=False)
     dnp = forms.DateField(label='Дата назначения пенсии', widget=forms.TextInput(attrs={'type': 'date'}))

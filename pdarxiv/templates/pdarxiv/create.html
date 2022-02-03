@@ -21,7 +21,7 @@
                 </div>
             {% endfor %}
         {% endif %}
-    <form class="formadd pt-3 pb-3" method="POST">
+    <form class="formadd pt-3 pb-3" method="POST" id="indexForm" data-streets-url="{% url 'ajax_load_streets' %}">
         {% csrf_token %}
         {{ form.media }}
         <p>{{ form.nom}} - АРХИВНЫЙ НОМЕР &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;СНИЛС: {{ form.snils}}</p>
@@ -31,8 +31,18 @@
         <p><span class="fadr"></span><span class="fadrf">Дата рождения </span>{{ form.dr}} <span class="fadrf">&nbsp;&nbsp;&nbsp;Дата смерти </span>{{ form.ds}}</p>
         <br>
         <p><span class="fadr">Адрес: </span><span class="fadrf">Почтовый индекс </span>{{ form.zind}}</p>
-        <p><span class="fadr"></span><span class="fadrf">Населенный пункт</span>{{ form.gor }}</p>
-        <p><span class="fadr"></span><span class="fadrf">Улица</span>{{ form.ul }}</p>
+        <p><span class="fadr"></span><span class="fadrf">Населенный пункт</span>
+            <select name="programming" id="programming" class="form-control">
+            <option value="">-- Населенный пункт --</option>
+            {% for i in city %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endfor %}
+            </select>
+        </p>
+        <p><span class="fadr"></span><span class="fadrf">Улица</span>
+        <select name="streets" id="streets" class="form-control">
+
+        </select></p>
         <p><span class="fadr"></span><span>Дом&nbsp;&nbsp</span>{{ form.dom }}&nbsp;&nbsp;
             <span>Корпус&nbsp;&nbsp</span>{{ form.kor }}&nbsp;&nbsp;
             <span>Квартира&nbsp;&nbsp;</span>{{ form.kvar }}</p>
@@ -61,4 +71,21 @@
 {% block footersite %}
     <script src="{% static 'pdarxiv/js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'pdarxiv/js/jquery.mask.js' %}"></script>
+    <script>
+    $("#programming").change(function () {
+      var url = $("#indexForm").attr("data-streets-url");  // get the url of the `load_courses` view
+      var programmingId = $(this).val();  // get the selected programming ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+        data: {
+          'programming': programmingId       // add the programming id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_courses` view function
+          $("#streets").html(data);  // replace the contents of the course input with the data that came from the server
+        }
+      });
+
+    });
+    </script>
 {% endblock %}  

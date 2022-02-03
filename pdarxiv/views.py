@@ -8,7 +8,7 @@ from django.core import paginator
 from django.db.models.base import Model
 from django.db.models import Q 
 from django.views.generic.detail import DetailView
-from pdarxiv.models import Pd, VidPens
+from pdarxiv.models import Pd, VidPens, VocNsp, VocUlc
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -134,3 +134,16 @@ class PdDeleteView(PermissionRequiredMixin, DeleteView):
     def handle_no_permission(self):
         messages.error(self.request, 'You dont have permission to do this')
         return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
+
+### справочник городов
+
+def load_cities(request):
+    city = VocNspo.objects.all()
+    d = {'city': city}
+    return render(request,'create.html',d)
+
+### Справочник улиц
+def load_streets(request):
+    kodnsp_id = request.GET.get('kodnsp')
+    streets = VocUlc.objects.filter(kodnsp_id=kodnsp_id).order_by('name')
+    return render(request, 'streets_dropdown_list_options.html', {'streets': streets})
