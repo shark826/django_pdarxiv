@@ -108,7 +108,7 @@ class PdDetailView(DetailView):
 
 ### Редактирование архдела
 class PdUpdateView(PermissionRequiredMixin, UpdateView):
-    model = Pd
+    model = Pd, VocNsp
     template_name = 'pdarxiv/create.html'
 
     form_class = PdForm
@@ -116,6 +116,13 @@ class PdUpdateView(PermissionRequiredMixin, UpdateView):
 
     permission_required = 'pdarxiv.change_pd'
     permission_denied_message = 'Hooo!'
+
+    ### справочник городов
+
+    def load_cities(self, **kwargs):
+        context['city'] = VocNsp.objects.all()
+        return context
+
 
 
     def get_success_url(self, **kwargs):         
@@ -135,15 +142,8 @@ class PdDeleteView(PermissionRequiredMixin, DeleteView):
         messages.error(self.request, 'You dont have permission to do this')
         return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
 
-### справочник городов
-
-def load_cities(request):
-    city = VocNspo.objects.all()
-    d = {'city': city}
-    return render(request,'create.html',d)
-
-### Справочник улиц
+    ### Справочник улиц
 def load_streets(request):
     kodnsp_id = request.GET.get('kodnsp')
     streets = VocUlc.objects.filter(kodnsp_id=kodnsp_id).order_by('name')
-    return render(request, 'streets_dropdown_list_options.html', {'streets': streets})
+    return render(request, 'pdarxiv/streets_dropdown_list_options.html', {'streets': streets})
